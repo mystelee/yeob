@@ -1,8 +1,8 @@
 package yeobchain;
+
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
-
-import yeobchain.StringUtil;
 
 public class Transaction {
 
@@ -32,4 +32,18 @@ public class Transaction {
 				+ Float.toString(value) + sequence);
 	}
 
+	// 변경하려는 모든 데이터에 서명
+	public void generateSignature(PrivateKey privateKey) {
+		String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient)
+				+ Float.toString(value);
+		signature = StringUtil.applyECDSASig(privateKey, data);
+	}
+
+	// 서명된 데이터 변경여부 확인
+	public boolean verifiySignature() {
+		String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient)
+				+ Float.toString(value);
+		return StringUtil.verifyECDSASig(sender, data, signature);
+	}
 }
+
