@@ -1,44 +1,37 @@
-package yeobchain;
+	package yeobchain;
 
+import java.security.Security;
 import java.util.ArrayList;
-
+import java.util.Base64;
 import com.google.gson.GsonBuilder;
 
 public class YeobChain {
 
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 	public static int difficulty = 5;
+	public static Wallet walletA;
+	public static Wallet walletB;
 
 	public static void main(String[] args) {
+		
+		//bouncy castle 보안 설
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
-		blockchain.add(new Block("Hi im the first block", "0"));
-		System.out.println("Trying to Mine block 1...");
-		blockchain.get(0).mineBlock(difficulty);
-
-		blockchain.add(new Block("Yo im the second block", blockchain.get(blockchain.size() - 1).hash));
-		System.out.println("Trying to Mine block 2...");
-		blockchain.get(1).mineBlock(difficulty);
-
-		blockchain.add(new Block("Hey im the third block", blockchain.get(blockchain.size() - 1).hash));
-		System.out.println("Trying to Mine block 3...");
-		blockchain.get(2).mineBlock(difficulty);
-
-		System.out.println("\nBlockchain is Valid : " + isChainValid());
-
-		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
-		System.out.println("\nThe block chain : ");
-		System.out.println(blockchainJson);
-
-		/*
-		 * Block genesisBlock = new Block("Hi im the first block", "0");
-		 * System.out.println("Hash for block 1 : " + genesisBlock.hash);
-		 * 
-		 * Block secondBlock = new Block("Yo im the second block", genesisBlock.hash);
-		 * System.out.println("Hash for block 2 : " + secondBlock.hash);
-		 * 
-		 * Block thirdBlock = new Block("Hey im the third block", secondBlock.hash);
-		 * System.out.println("Hash for block 3 : " + thirdBlock.hash);
-		 */
+		//지갑 생성
+		walletA = new Wallet();
+		walletB = new Wallet();
+		
+		System.out.println("Private and public keys:");
+		System.out.println(StringUtil.getStringFromKey(walletA.privateKey));
+		System.out.println(StringUtil.getStringFromKey(walletA.publicKey));
+		
+		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
+		transaction.generateSignature(walletA.privateKey);
+		
+		System.out.println("is signature verified");
+		System.out.println(transaction.verifiySignature());
+		
+		
 	}// end main
 
 	public static Boolean isChainValid() {
