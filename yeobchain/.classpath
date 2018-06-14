@@ -3,8 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson_lib"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Users/user2/Documents/workspace/jar/gson-2.6.2.jar"/>
-	<classpathentry kind="lib" path="/Users/user2/Documents/workspace/jar/bcprov-ext-jdk15on-159.jar"/>
-	<classpathentry kind="lib" path="/Users/user2/Documents/workspace/jar/bcprov-jdk15on-159.jar"/>
+	<classpathentry kind="lib" path="C:/work/jar/bcprov-ext-jdk15on-159.jar"/>
+	<classpathentry kind="lib" path="C:/work/jar/bcprov-jdk15on-159.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
